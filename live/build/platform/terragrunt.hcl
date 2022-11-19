@@ -2,6 +2,11 @@ include "root" {
   path = find_in_parent_folders()
 }
 
+include "env" {
+  path   = "../env.hcl"
+  expose = true
+}
+
 terraform {
   source = "tfr:///terraform-aws-modules/vpc/aws?version=3.18.1"
 }
@@ -19,7 +24,7 @@ inputs = {
 
   tags = {
     Terraform = "true"
-    EnvName   = "build"
+    EnvName   = include.env.locals.env_name
     Component = "platform"
   }
 }
