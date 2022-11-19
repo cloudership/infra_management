@@ -5,7 +5,7 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    bucket         = "com-cloudership-prefab-build-platform-management"
+    bucket         = "com-cloudership-showcase-build-management"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "eu-west-1"
     encrypt        = true
