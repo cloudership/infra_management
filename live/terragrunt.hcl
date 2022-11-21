@@ -1,3 +1,7 @@
+locals {
+  env_config = read_terragrunt_config("../env.hcl")
+}
+
 remote_state {
   backend  = "s3"
   generate = {
@@ -5,7 +9,7 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    bucket         = "com-cloudership-showcase-build-management"
+    bucket         = "com-cloudership-showcase-${local.env_config.inputs.env_name}-management"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "eu-west-1"
     encrypt        = true
