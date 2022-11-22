@@ -11,7 +11,7 @@ remote_state {
   config = {
     bucket         = "com-cloudership-showcase-${local.env_config.inputs.env_name}-management"
     key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "eu-west-1"
+    region         = "${local.env_config.inputs.aws_region}"
     encrypt        = true
     dynamodb_table = "TerraformLocks"
   }
@@ -22,7 +22,7 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOT
     provider "aws" {
-      region = "eu-west-1"
+      region = "${local.env_config.inputs.aws_region}"
     }
   EOT
 }
