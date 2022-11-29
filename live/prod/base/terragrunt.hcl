@@ -17,5 +17,5 @@ inputs = {
   project_name         = "showcase"
   env_name             = include.env.locals.env_name
   vpc_subnet_address   = include.env.locals.subnet_address
-  vpc_subnet_mask_bits = 16
+  vpc_subnet_mask_bits = include.env.locals.subnet_mask_bits
 }
