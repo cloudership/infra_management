@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
+REPO_ROOT_DIR="$(realpath -e "${SCRIPT_DIR}/..")"
+
+check_arg() {
+  if [[ -z "${1}" ]] ; then
+    echo "${2:-error}" >&2
+    exit 1
+  fi
+}
+
+env_name="${1:-}"
+check_arg "${env_name}" "1st arg must be env name"
+shift
+
+rel_component_dir="${1:-}"
+check_arg "${rel_component_dir}" "2nd arg must be relative component dir"
+shift
+component_dir="${REPO_ROOT_DIR}/live/${env_name}/${rel_component_dir}"
+
+local_or_remote="${1:-}"
+if [[ "${local_or_remote}" = "local" ]]; then
+  local_source_dir="${REPO_ROOT_DIR}/../$(sed -nEe 's/.+source = "git::git@github.com:[^/]+\/(\w+).git?.+/\1/p' \
+                                  < "${component_dir}/terragrunt.hcl")"
+  local_source_args="--terragrunt-source ${local_source_dir}"
+fi
+
+cd "${component_dir}"
+terragrunt plan ${local_source_args:-}
