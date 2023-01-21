@@ -46,4 +46,4 @@ if [[ "${local_or_remote}" = "local" ]]; then
 fi
 
 cd "${component_dir}"
-terragrunt plan ${local_source_args:-} -out="${plan_file}" "${@}"
+terragrunt apply ${local_source_args:-} "${@}" "${plan_file}"
