@@ -5,9 +5,19 @@ set -euo pipefail
 SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 REPO_ROOT_DIR="$(realpath -e "${SCRIPT_DIR}/..")"
 
+usage() {
+  echo "Usage: ${BASH_SOURCE[0]} ENV_NAME COMPONENT_DIR [local]"
+}
+
+error_exit() {
+    echo "${1:-error}" >&2
+    exit 1
+}
+
 check_arg() {
   if [[ -z "${1}" ]] ; then
     echo "${2:-error}" >&2
+    usage >&2
     exit 1
   fi
 }
@@ -20,6 +30,8 @@ rel_component_dir="${1:-}"
 check_arg "${rel_component_dir}" "2nd arg must be relative component dir"
 shift
 component_dir="${REPO_ROOT_DIR}/live/${env_name}/${rel_component_dir}"
+
+[[ ! -d "${component_dir}" ]] && error_exit "${component_dir} does not exist"
 
 local_or_remote="${1:-}"
 if [[ "${local_or_remote}" = "local" ]]; then
