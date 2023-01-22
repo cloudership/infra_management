@@ -23,6 +23,14 @@ generate "provider" {
   contents  = <<-EOT
     provider "aws" {
       region = "${local.env_config.inputs.aws_region}"
+
+      default_tags {
+        tags = {
+          Terraform = "true"
+          Project   = var.project_name
+          EnvName   = var.env_name
+        }
+      }
     }
   EOT
 }
