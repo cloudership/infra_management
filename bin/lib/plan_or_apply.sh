@@ -42,9 +42,9 @@ check_arg "${PLAN_FILE}" "3rd arg must be plan file"
 shift
 
 if [[ "${USE_LOCAL_SOURCE}" == "1" ]] ; then
-  LOCAL_SOURCE_DIR="${REPO_ROOT_DIR}/../$(sed -nEe 's/.+source = "git::git@github.com:[^/]+\/(\w+).git?.+/\1/p' \
+  LOCAL_SOURCE_DIR="${REPO_ROOT_DIR}/../$(sed -nEe 's/.+source = "git::git@github.com:[^/]+\/(\w+).git.+/\1/p' \
                                   < "${COMPONENT_DIR}/terragrunt.hcl")"
-  LOCAL_SOURCE_ARGS="--terragrunt-source ${LOCAL_SOURCE_DIR}"
+  LOCAL_SOURCE_ARGS="--terragrunt-source ${LOCAL_SOURCE_DIR}//."
 fi
 
 cd "${COMPONENT_DIR}"
