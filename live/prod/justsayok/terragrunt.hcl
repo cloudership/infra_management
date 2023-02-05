@@ -32,9 +32,10 @@ inputs = {
     tag  = "latest"
   }
 
-  vpc_id          = dependency.base.outputs.vpc_id
-  subnet_ids      = dependency.base.outputs.public_subnet_ids
-  public_alb      = dependency.base.outputs.public_alb
-  ecs_cluster_arn = dependency.base.outputs.ecs_cluster_default_arn
-  public_zone_id  = dependency.base.outputs.route53_zone_public_id
+  vpc_id                      = dependency.base.outputs.vpc_id
+  subnet_ids                  = dependency.base.outputs.public_subnet_ids
+  public_alb                  = dependency.base.outputs.public_alb
+  ecs_cluster_arn             = dependency.base.outputs.ecs_cluster_default_arn
+  ecs_task_execution_role_arn = dependency.base.outputs.ecs_task_execution_role_arn
+  public_zone_id              = dependency.base.outputs.route53_zone_public_id
 }
