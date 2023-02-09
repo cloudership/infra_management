@@ -17,7 +17,7 @@ dependency "base" {
 }
 
 terraform {
-  source = "git::git@github.com:cloudership/infra_tf_service.git?ref=basic-public-service"
+  source = "git::git@github.com:cloudership/infra_tf_service.git?ref=v1.0.0-alpha.001"
 }
 
 prevent_destroy = true

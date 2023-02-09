@@ -13,7 +13,7 @@ include "env" {
 }
 
 terraform {
-  source = "git::git@github.com:cloudership/infra_tf_base.git?ref=master"
+  source = "git::git@github.com:cloudership/infra_tf_base.git?ref=v1.0.0-alpha.001"
 }
 
 prevent_destroy = true
