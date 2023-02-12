@@ -1,3 +1,7 @@
+locals {
+  revision = get_env("justsayok_revision", "master")
+}
+
 include "root" {
   path = find_in_parent_folders()
 }
@@ -17,7 +21,7 @@ dependency "base" {
 }
 
 terraform {
-  source = "git::git@github.com:cloudership/infra_tf_service.git?ref=v1.0.0-alpha.001"
+  source = "git::git@github.com:cloudership/infra_tf_service.git?ref=${local.revision}"
 }
 
 prevent_destroy = true
