@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_LIB_DIR="$(dirname "${BASH_SOURCE[0]}")"
-REPO_ROOT_DIR="$(realpath -e "${SCRIPT_LIB_DIR}/../..")"
+REPO_ROOT_DIR="${SCRIPT_LIB_DIR}/../.."
 
 USAGE="Usage: ${0} [--local] ENV_NAME COMPONENT_DIR PLAN_FILE [OTHER_TF_ARGS ...]"
 
