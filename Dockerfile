@@ -1,6 +1,9 @@
 # Always get the latest one to ensure we are up to date security patches
 FROM alpine:latest
 
+# Increment to force all layers to be rebuilt
+ENV INVALIDATE_DOCKER_LAYER_CACHE=1
+
 RUN apk add --no-cache bash
 
 COPY bin/bootstrap/get-terragrunt /app/bin/bootstrap/
