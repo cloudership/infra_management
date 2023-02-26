@@ -21,3 +21,6 @@ jobs:
         run: "sudo ./bin/bootstrap/get-terraform && sudo ./bin/bootstrap/get-terragrunt"
       - name: "Run plan"
         run: "bin/plan prod base /tmp/prod-base.tfplan"
+        env:
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
