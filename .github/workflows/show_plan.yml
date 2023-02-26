@@ -1,0 +1,23 @@
+name: Show Plan
+on:
+  push:
+    branches-ignore:
+      - "master"
+jobs:
+  terraform_plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: "Configure git"
+        run: |
+          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "ssh://git@github.com:cloudership/"
+          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "ssh://git@github.com/cloudership/"
+          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "git@github.com:cloudership/"
+          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "git@github.com/cloudership/"
+        env:
+          TOKEN: "${{ secrets.REPO_ACCESS_TOKEN }}"
+      - name: "Install terra* tools"
+        run: "sudo ./bin/bootstrap/get-terraform && sudo ./bin/bootstrap/get-terragrunt"
+      - name: "Run plan"
+        run: "bin/plan prod base /tmp/prod-base.tfplan"
