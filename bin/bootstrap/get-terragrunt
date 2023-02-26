@@ -3,6 +3,7 @@
 set -euo pipefail
 
 VERSION=0.43.2
+INSTALL_DIR="${INSTALL_DIR:-/usr/bin}"
 
 if [[ $(uname -m) == "x86_64" ]]; then
   SHA256=d9886c7de21fbe7127251735599f634eb7899f635e7cd73015a7b1a0a25772fc
@@ -16,6 +17,7 @@ else
 fi
 
 wget -q "https://github.com/gruntwork-io/terragrunt/releases/download/v${VERSION}/terragrunt_linux_${URL_ARCH}" \
-     -O /usr/bin/terragrunt
-echo "${SHA256}  /usr/bin/terragrunt" | sha256sum -wc
-chmod +x /usr/bin/terragrunt
+     -O /tmp/terragrunt
+echo "${SHA256}  /tmp/terragrunt" | sha256sum -wc
+chmod +x /tmp/terragrunt
+cp /tmp/terragrunt "${INSTALL_DIR}"
