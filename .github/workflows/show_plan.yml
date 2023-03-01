@@ -11,10 +11,10 @@ jobs:
         uses: actions/checkout@v3
       - name: "Configure git"
         run: |
-          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "ssh://git@github.com:cloudership/"
-          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "ssh://git@github.com/cloudership/"
-          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "git@github.com:cloudership/"
-          git config --global --add "url.https://x:${TOKEN}@github.com/cloudership/".insteadOf "git@github.com/cloudership/"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "ssh://git@github.com:"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "ssh://git@github.com/"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "git@github.com:"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "git@github.com/"
         env:
           TOKEN: "${{ secrets.REPO_ACCESS_TOKEN }}"
       - name: "Install terra* tools"
