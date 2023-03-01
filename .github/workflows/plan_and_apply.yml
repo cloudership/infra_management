@@ -29,7 +29,7 @@ on:
         type: "string"
 
 jobs:
-  terraform_plan:
+  terragrunt_plan_and_apply:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
