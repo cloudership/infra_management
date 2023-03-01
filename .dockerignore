@@ -1,0 +1,5 @@
+**/.terragrunt-cache
+/out/
+/live/local.tfvars
+.git*
+.idea*

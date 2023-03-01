@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROLE_NAME="${1}"
+
+SESSION_DURATION=900 # $((3600 * 12))
+ACCOUNT_ID="$(aws sts get-caller-identity | jq -Mr .Account)"
+
+aws sts assume-role --role-arn "arn:aws:iam::${ACCOUNT_ID}:role/${ROLE_NAME}" \
+  --role-session-name "Session-$(id -un)" --duration-seconds "${SESSION_DURATION}" |
+"$(dirname "${BASH_SOURCE[0]}")/assume-role-env" < /dev/stdin \
+  | gh secret set --app actions --repo cloudership/infra_management --env-file -
