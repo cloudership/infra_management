@@ -6,16 +6,6 @@ include "root" {
   path = find_in_parent_folders()
 }
 
-include "project" {
-  path   = "../../project.hcl"
-  expose = true
-}
-
-include "env" {
-  path   = "../env.hcl"
-  expose = true
-}
-
 dependency "base" {
   config_path = "../base"
 }
@@ -23,8 +13,6 @@ dependency "base" {
 terraform {
   source = "git::git@github.com:cloudership/infra_tf_service.git?ref=${local.revision}"
 }
-
-prevent_destroy = true
 
 inputs = {
   service_name = "justsayok"
