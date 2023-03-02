@@ -1,6 +1,7 @@
 locals {
-  project_config = read_terragrunt_config("../../project.hcl")
-  env_config     = read_terragrunt_config("../env.hcl")
+  project    = jsondecode(file(find_in_parent_folders("project.json")))
+  env        = jsondecode(file(find_in_parent_folders("env.json")))
+  account_id = local.project.env_account_ids[local.env.env_name]
 }
 
 remote_state {
@@ -12,23 +13,24 @@ remote_state {
   }
 
   config = {
-    bucket         = "com-cloudership-showcase-${local.env_config.locals.env_name}-management"
+    bucket         = "com-cloudership-showcase-${local.env.env_name}-management"
     key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "${local.env_config.locals.aws_region}"
+    region         = local.env.aws_region
     encrypt        = true
     dynamodb_table = "TerraformLocks"
   }
 }
 
-iam_role = "arn:aws:iam::${local.project_config.locals.env_account_ids[local.env_config.locals.env_name]}:role/OrganizationAccountAccessRole"
+iam_role                 = "arn:aws:iam::${local.account_id}:role/OrganizationAccountAccessRole"
 iam_assume_role_duration = 900
+prevent_destroy          = true
 
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = <<-EOT
+  contents  = <<-HCL
     provider "aws" {
-      region = "${local.env_config.locals.aws_region}"
+      region = var.aws_region
 
       default_tags {
         tags = {
@@ -38,12 +40,17 @@ generate "provider" {
         }
       }
     }
-  EOT
+  HCL
 }
 
 terraform {
   extra_arguments "vars" {
     commands = get_terraform_commands_that_need_vars()
+
+    required_var_files = [
+      find_in_parent_folders("project.json"),
+      find_in_parent_folders("env.json"),
+    ]
 
     optional_var_files = [
       "${get_parent_terragrunt_dir()}/local.tfvars"
