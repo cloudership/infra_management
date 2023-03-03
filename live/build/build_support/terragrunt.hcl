@@ -3,5 +3,5 @@ include "root" {
 }
 
 terraform {
-  source = "git::git@github.com:cloudership/infra_tf_build_support.git?ref=master&kick=1"
+  source = "git::git@github.com:cloudership/infra_tf_build_support.git?ref=ecr-repos"
 }
