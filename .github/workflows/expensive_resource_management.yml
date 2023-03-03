@@ -1,0 +1,45 @@
+name: "Expensive Resource Management"
+on:
+  workflow_dispatch:
+    inputs:
+      enable_expensive:
+        description: "Set to 'true' to create expensive resources, or to 'false' to destroy them"
+        required: true
+        default: "true"
+        type: "choice"
+        options:
+          - "true"
+          - "false"
+  workflow_call:
+    inputs:
+      enable_expensive:
+        required: true
+        default: "true"
+        type: "string"
+
+jobs:
+  manage_expensive_resources:
+    strategy:
+      matrix:
+        env_name: [build, prod]
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: "Configure git"
+        run: |
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "ssh://git@github.com:"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "ssh://git@github.com/"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "git@github.com:"
+          git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "git@github.com/"
+        env:
+          TOKEN: "${{ secrets.REPO_ACCESS_TOKEN }}"
+      - name: "Install terra* tools"
+        run: "sudo ./bin/bootstrap/get-terraform && sudo ./bin/bootstrap/get-terragrunt"
+      - name: "Enable or disable all expensive resources in ${{ matrix.env_name }} environment"
+        run: "bin/manage-expensive '${{ matrix.env_name }}' ${{ inputs.enable_expensive }}"
+        env:
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          AWS_SESSION_TOKEN: "${{ secrets.AWS_SESSION_TOKEN }}"
