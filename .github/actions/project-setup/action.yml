@@ -1,0 +1,21 @@
+name: "Project Setup"
+description: "Prepare project for running jobs"
+inputs:
+  token:
+    description: "GitHub access token to check out Terraform module source repositories"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: "Configure git"
+      run: |
+        git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "ssh://git@github.com:"
+        git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "ssh://git@github.com/"
+        git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "git@github.com:"
+        git config --global --add "url.https://x:${TOKEN}@github.com/".insteadOf "git@github.com/"
+      env:
+        TOKEN: "${{ inputs.token }}"
+      shell: "bash"
+    - name: "Install terra* tools"
+      run: "sudo ./bin/bootstrap/get-terraform && sudo ./bin/bootstrap/get-terragrunt"
+      shell: "bash"
