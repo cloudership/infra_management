@@ -2,3 +2,4 @@
 /out/
 /live/local.tfvars
 /tmp/
+/.env

@@ -18,3 +18,21 @@ manage by non-specialists while being extensible by specialists who can be hired
 
 The platform is fully tied to AWS. Tie-in is not an issue as it is so simple that it is fairly easy to reimplement on
 another cloud provider or add Kubernetes onto it to allow more vendor-neutrality.
+
+# Usage
+
+## CI/CD credentials
+
+User AWS keys are not permanently stored in GitHub Actions secrets. Instead, session credentials are generated from a
+role (using aws sts assume-role) and uploaded to GitHub secrets. These have a maximum duration after which they expire.
+
+First download the GitHub CLI, then ensure it is configured correctly. The GitHub token used must have permissions to
+create repository secrets in this repository.
+
+Run this to upload creds:
+```
+AWS_PROFILE=current-user-credentials bin/add-session-to-github-actions RoleToAssumeForGitHubActionsName
+```
+
+To configure the duration in seconds, set the DURATION_SECONDS env var in the current shell or in the .env file (see
+.env.example for an example).
