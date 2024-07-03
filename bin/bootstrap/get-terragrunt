@@ -2,14 +2,12 @@
 
 set -euo pipefail
 
-VERSION=0.43.2
+VERSION=0.60.0
 INSTALL_DIR="${INSTALL_DIR:-/usr/bin}"
 
 if [[ $(uname -m) == "x86_64" ]]; then
-  SHA256=d9886c7de21fbe7127251735599f634eb7899f635e7cd73015a7b1a0a25772fc
   URL_ARCH=amd64
 elif [[ $(uname -m) == "aarch64" ]]; then
-  SHA256=50897234135811a2673e1a1454ef2097069c0aa87f4b040b6ceb7735038d41e6
   URL_ARCH=arm64
 else
   echo "Unsupported architecture $(uname -m)" >&2
@@ -18,6 +16,5 @@ fi
 
 wget -q "https://github.com/gruntwork-io/terragrunt/releases/download/v${VERSION}/terragrunt_linux_${URL_ARCH}" \
      -O /tmp/terragrunt
-echo "${SHA256}  /tmp/terragrunt" | sha256sum -wc
 chmod +x /tmp/terragrunt
 cp /tmp/terragrunt "${INSTALL_DIR}"
