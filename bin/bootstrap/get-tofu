@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+VERSION=1.7.2
+INSTALL_DIR="${INSTALL_DIR:-/usr/bin}"
+
+if [[ $(uname -m) == "x86_64" ]]; then
+  URL_ARCH=amd64
+elif [[ $(uname -m) == "aarch64" ]]; then
+  URL_ARCH=arm64
+else
+  echo "Unsupported architecture $(uname -m)" >&2
+  exit 3
+fi
+
+cd /tmp
+wget -q "https://github.com/opentofu/opentofu/releases/download/v${VERSION}/tofu_${VERSION}_linux_${URL_ARCH}.zip" \
+     -O tofu.zip
+unzip tofu.zip tofu
+chmod +x tofu
+cp tofu "${INSTALL_DIR}"
+rm /tmp/tofu.zip /tmp/tofu

@@ -17,5 +17,5 @@ runs:
         TOKEN: "${{ inputs.token }}"
       shell: "bash"
     - name: "Install terra* tools"
-      run: "sudo ./bin/bootstrap/get-terraform && sudo ./bin/bootstrap/get-terragrunt"
+      run: "sudo ./bin/bootstrap/get-tofu && sudo ./bin/bootstrap/get-terragrunt"
       shell: "bash"
