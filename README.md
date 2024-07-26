@@ -1,26 +1,35 @@
 # Infra Management
 
-This repo allows management of a simple and complete AWS cloud platform to which services can be deployed.
+## Intro
 
-The target user is an organization that needs to move past the simple, quick and rough deployment and hosting solutions
-it built to allow fast iteration at the young startup phase and now needs to build a solution that will allow it to make
-best use of the cloud.
+This project allows management of a simple and complete AWS cloud platform to run cloud services and data pipelines.
 
-Such an organization is not usually ready to hire a full-time infrastructure/platform/SRE team,
-and can only rely on one or two full-time engineers - or even a part-time engineer - to manage the cloud platform.
+Here is a common scenario: when organizations start their journey on the cloud, they are small and scrappy - they are
+time and budget constrained. So they cobble something together quickly to meet these constraints. This solution grows
+hackily and untidily until eventually... it doesn't. Major issues with evolvability or scalability occur and the project
+must be restarted "properly" from scratch.
 
-When the organization is ready to hire a larger infrastructure team, the infrastructure built here can be used as a
-basis for the more sophisticated and complex solutions they may want to build.
+Another, rarer, scenario is when organization similarly start with a hacky and scrappy cloud hosting solution, but wise
+managers realise that it's time to invest in a proper solution before that solution breaks down, thus avoiding any
+disruption for customers or stressful crunch-time for engineers.
 
-Simplicity is its main guiding principle, and it intends to be a platform that is easy to learn and manage by
-non-specialists. It can, however, be extended by specialists who can be hired when the time is right.
+This project is aimed at helping young organizations avoid both these scenarios. It allows them to start "properly" from
+the beginning while still being quick and easy to start without a big investment. So, any reinvestment or jarring
+transition is not necessary, and the initial project can smoothly transition into something more complex as required.
+
+Young organizations are not usually ready to hire a full-time infrastructure/platform/SRE team, and can only rely on one
+or two full-time engineers - or even a part-time engineer - to manage the cloud platform.
+
+Thus, simplicity is the project's main guiding principle. It intends to be a platform that is easy to learn and manage
+by non-specialists. It can, however, be extended by specialists who can be hired when the time is right.
+
+When the time is right and organization is ready to hire a larger infrastructure team, this project can be used as the
+foundations of a more sophisticated and complex solution.
 
 The platform is fully tied to AWS. Tie-in is not an issue as it is so simple that it is fairly easy to reimplement on
 another cloud provider to allow more vendor-neutrality.
 
-# Usage
-
-## Tools
+## Usage
 
 ### Set up
 
@@ -68,28 +77,33 @@ $ bin/tg prod base plan
 
 ---
 
-## Build Docker container
+## ~~Build Docker container~~
 
-The CI pipeline builds a Docker container and uses that to run commands. Here is how to test the build manually:
+~~The CI pipeline builds a Docker container and uses that to run commands. Here is how to test the build manually:~~
 
 ```shell
 docker buildx build -t infra_management:local .
 ```
 
-## CI/CD credentials
+### ~~CI/CD credentials~~
 
-User AWS keys are not permanently stored in GitHub Actions secrets. Instead, session credentials are generated from a
-role (using aws sts assume-role) and uploaded to GitHub secrets. These have a maximum duration after which they expire.
+NOTE: Infrastructure CI/CD is disabled for now so development can be concentrated on Kubernetes CI/CD and getting the
+platform usable; it is something to be addressed in the future.
 
-First download the GitHub CLI, then ensure it is configured correctly. The GitHub token used must have permissions to
-create repository secrets in this repository.
+~~User AWS keys are not permanently stored in GitHub Actions secrets. Instead, session credentials are generated from a
+role (using aws sts assume-role) and uploaded to GitHub secrets. These have a maximum duration after which they
+expire.~~
 
-Run this to upload creds:
+~~First download the GitHub CLI, then ensure it is configured correctly. The GitHub token used must have permissions to
+create repository secrets in this repository.~~
+
+~~Run this to upload creds:~~
 ```
 AWS_PROFILE=current-user-credentials bin/add-session-to-github-actions RoleToAssumeForGitHubActionsName
 ```
 
-(The role has to be created before-hand. A superuser role CAN be used but is not recommended for production systems.)
+~~(The role has to be created before-hand. A superuser role CAN be used but is not recommended for production
+systems.)~~
 
-To configure the duration in seconds, set the DURATION_SECONDS env var in the current shell or in the .env file (see
-.env.example for an example).
+~~To configure the duration in seconds, set the DURATION_SECONDS env var in the current shell or in the .env file (see
+.env.example for an example).~~
