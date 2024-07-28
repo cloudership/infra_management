@@ -34,7 +34,7 @@ generate "provider" {
 
       default_tags {
         tags = {
-          Terraform = "true"
+          OpenTofu  = "true"
           Project   = var.project_name
           EnvName   = var.env_name
         }
