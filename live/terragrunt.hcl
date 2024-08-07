@@ -13,11 +13,11 @@ remote_state {
   }
 
   config = {
-    bucket         = "com-cloudership-showcase-${local.env.env_name}-management"
+    bucket         = "com-mlops-showcase-${local.env.env_name}-${local.env.aws_region}-opentofu-state"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = local.env.aws_region
     encrypt        = true
-    dynamodb_table = "TerraformLocks"
+    dynamodb_table = "${title(local.env.env_name)}OpentofuLocks"
   }
 }
 
