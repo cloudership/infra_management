@@ -22,7 +22,7 @@ remote_state {
 }
 
 iam_role                 = "arn:aws:iam::${local.account_id}:role/OrganizationAccountAccessRole"
-iam_assume_role_duration = 900
+iam_assume_role_duration = 14400
 
 generate "provider" {
   path      = "provider.tf"
