@@ -5,4 +5,5 @@ set -euo pipefail
 scriptdir="$(dirname "${BASH_SOURCE[0]}")"
 
 "${scriptdir}/tg" prod base apply -destroy \
-    -target=module.main_eks_cluster
+    -target=module.main_eks_cluster \
+    -target=module.nat_instance
