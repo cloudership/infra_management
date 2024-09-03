@@ -4,6 +4,8 @@ set -euo pipefail
 
 scriptdir="$(dirname "${BASH_SOURCE[0]}")"
 
-"${scriptdir}/tg" prod base apply -destroy \
-    -target=module.main_eks_cluster \
+"${scriptdir}/tg" prod base_eks --terragrunt-non-interactive apply -destroy -auto-approve \
+    -target=module.main_eks_cluster
+
+"${scriptdir}/tg" prod base --terragrunt-non-interactive apply -destroy -auto-approve \
     -target=module.nat_instance
