@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/live/build/build_support/.terragrunt-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/live/prod/apps/.terragrunt-cache" />
       <excludeFolder url="file://$MODULE_DIR$/live/prod/base_domains/.terragrunt-cache" />
       <excludeFolder url="file://$MODULE_DIR$/live/prod/base_eks/.terragrunt-cache" />
     </content>
