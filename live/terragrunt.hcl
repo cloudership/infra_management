@@ -1,7 +1,8 @@
 locals {
-  project    = jsondecode(file(find_in_parent_folders("project.json")))
-  env        = jsondecode(file(find_in_parent_folders("env.json")))
-  account_id = local.project.env_account_ids[local.env.env_name]
+  project          = jsondecode(file(find_in_parent_folders("project.json")))
+  env              = jsondecode(file(find_in_parent_folders("env.json")))
+  account_id       = local.project.env_account_ids[local.env.env_name]
+  k8s_cluster_name = "${local.project.project_name}-main"
 }
 
 remote_state {
@@ -38,6 +39,11 @@ generate "provider" {
           EnvName   = var.env_name
         }
       }
+    }
+
+    provider "kubernetes" {
+      config_path    = "~/.kube/config"
+      config_context = "arn:aws:eks:${local.env.aws_region}:${local.account_id}:cluster/${local.k8s_cluster_name}"
     }
   HCL
 }
