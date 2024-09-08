@@ -42,11 +42,6 @@ generate "provider" {
         }
       }
     }
-
-    provider "kubernetes" {
-      config_path    = "~/.kube/config"
-      config_context = "arn:aws:eks:${local.env.aws_region}:${local.account_id}:cluster/${local.k8s_cluster_name}"
-    }
   HCL
 }
 
