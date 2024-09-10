@@ -8,6 +8,8 @@ if [[ -n "${ALL:-}" ]]; then
     NAT_INSTANCE=1
 fi
 
+"${scriptdir}/tg" prod apps_k8s --terragrunt-non-interactive apply -destroy -auto-approve
+
 "${scriptdir}/tg" prod base_eks --terragrunt-non-interactive apply -destroy -auto-approve \
     -target=module.main_eks_cluster
 
