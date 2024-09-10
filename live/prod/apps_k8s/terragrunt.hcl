@@ -34,7 +34,7 @@ generate "k8s_provider" {
 }
 
 terraform {
-  source = "git::https://github.com/cloudership/infra_tf_apps_k8s.git?ref=master"
+  source = "git::https://github.com/cloudership/infra_tf_apps.git//k8s?ref=master"
 }
 
 inputs = {
