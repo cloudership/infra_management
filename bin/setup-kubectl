@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -euo pipefail
+
+aws eks update-kubeconfig --name showcase-main --alias showcase-main --user-alias showcase-main

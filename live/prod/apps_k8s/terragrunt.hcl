@@ -24,7 +24,7 @@ generate "k8s_provider" {
   if_exists = "overwrite_terragrunt"
 
   # Assumes cluster name has the default configuration as described here:
-  # https://github.com/cloudership/infra_tf_base/blob/master/doc/kubernetes.md#kubectl-access
+  # https://github.com/cloudership/infra_management/blob/master/doc/kubernetes.md#kubectl-access
   contents = <<-HCL
     provider "kubernetes" {
       config_path    = "~/.kube/config"
