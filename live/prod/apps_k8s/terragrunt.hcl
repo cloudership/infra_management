@@ -38,7 +38,7 @@ terraform {
 }
 
 inputs = {
-  rds_hostname = dependency.base.outputs.rds_hostname
-  rds_port     = dependency.base.outputs.rds_port
+  rds_hostname       = dependency.base.outputs.rds_hostname
+  rds_port           = dependency.base.outputs.rds_port
   bucket_mlflow_name = dependency.apps.outputs.bucket_mlflow_name
 }

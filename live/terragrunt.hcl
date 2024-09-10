@@ -1,8 +1,8 @@
 locals {
-  project          = jsondecode(file(find_in_parent_folders("project.json")))
-  env              = jsondecode(file(find_in_parent_folders("env.json")))
-  account_id       = local.project.env_account_ids[local.env.env_name]
-  bucket_prefix    = "${join("-", reverse(split(".", local.project.root_domain)))}-${local.env.env_name}-${local.env.aws_region}"
+  project       = jsondecode(file(find_in_parent_folders("project.json")))
+  env           = jsondecode(file(find_in_parent_folders("env.json")))
+  account_id    = local.project.env_account_ids[local.env.env_name]
+  bucket_prefix = "${join("-", reverse(split(".", local.project.root_domain)))}-${local.env.env_name}-${local.env.aws_region}"
 }
 
 remote_state {
