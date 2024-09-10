@@ -7,5 +7,5 @@ dependency "base" {
 }
 
 terraform {
-  source = "git::git@github.com:cloudership/infra_tf_apps.git?ref=master"
+  source = "git::https://github.com/cloudership/infra_tf_apps.git?ref=master"
 }
