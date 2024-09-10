@@ -12,6 +12,28 @@ decision made on a day (starting at 01).
 
 ## List of Decisions
 
+### DIF-2024091001 More granular break-up of IaC components
+
+Resources are now broken into different components along certain divisions: platform engineer/app developer, and
+AWS/Kubernetes.
+
+The platform engineer/app developer division is required so app developers can self-manage infrastructure without the
+risk of breaking the whole platform.
+
+The AWS/Kubernetes division is required as each have their own sets of tools and configurations.
+
+Also, this allows easily deleting resources when not in use to save cost (only a concern as this is a showcase project
+that does not run production workloads).
+
+So we have 3 types of components:
+* base AWS components (platform engineers manage AWS resources)
+* app AWS components (app developers manage their apps own AWS resources) - `apps` is in this category.
+* app k8s components (app developers manage their own k8s resources). `apps_k8s` is in this category - it manages the
+  'glue' between the AWS world and the k8s world, e.g. by creating k8s secrets or ConfigMaps with AWS configuration
+  values, or attaching IAM roles to k8s ServiceAccounts.
+
+All components are currently monorepos for simplicity - they can be broken up into more granular components as required.
+
 ### DIF-2024070601 Switch to OpenTofu
 
 Terragrunt will now support OpenTofu, switch to that. For now it means no changes to the IaC but going forward there

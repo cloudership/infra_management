@@ -75,6 +75,17 @@ $ bin/tg prod base plan
 <cd to live/prod/base and run 'terragrunt --terragrunt-source=/home/user/base_proj plan'>
 ```
 
+## Run order of components
+
+Terragrunt can figure this out if run-all is used but that is not officially supported for now. The manual run order is:
+* base
+* base_domains
+* base_eks
+* apps
+* apps_k8s
+
+Then Kubernetes manifests can be applied.
+
 ---
 
 ## ~~Build Docker container~~

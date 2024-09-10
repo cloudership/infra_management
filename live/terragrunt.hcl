@@ -2,7 +2,6 @@ locals {
   project          = jsondecode(file(find_in_parent_folders("project.json")))
   env              = jsondecode(file(find_in_parent_folders("env.json")))
   account_id       = local.project.env_account_ids[local.env.env_name]
-  k8s_cluster_name = "${local.project.project_name}-main"
   bucket_prefix    = "${join("-", reverse(split(".", local.project.root_domain)))}-${local.env.env_name}-${local.env.aws_region}"
 }
 
@@ -27,8 +26,8 @@ remote_state {
 iam_role                 = "arn:aws:iam::${local.account_id}:role/OrganizationAccountAccessRole"
 iam_assume_role_duration = 14400
 
-generate "provider" {
-  path      = "provider.tf"
+generate "aws_provider" {
+  path      = "aws_provider.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<-HCL
     provider "aws" {
