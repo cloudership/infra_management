@@ -47,9 +47,10 @@ terraform {
 }
 
 inputs = {
-  rds_hostname       = dependency.base.outputs.rds_hostname
-  rds_port           = dependency.base.outputs.rds_port
-  bucket_mlflow_name = dependency.apps.outputs.bucket_mlflow_name
-  role_mlflow_arn    = dependency.apps.outputs.role_mlflow_arn
-  cluster_name       = dependency.base_eks.outputs.main_cluster_name
+  rds_hostname                        = dependency.base.outputs.rds_hostname
+  rds_port                            = dependency.base.outputs.rds_port
+  bucket_mlflow_name                  = dependency.apps.outputs.bucket_mlflow_name
+  policy_mlflow_arn                   = dependency.apps.outputs.policy_mlflow_arn
+  eks_cluster_main_oidc_provider_name = dependency.base_eks.outputs.eks_cluster_main_oidc_provider_name
+  eks_cluster_main_oidc_provider_arn  = dependency.base_eks.outputs.eks_cluster_main_oidc_provider_arn
 }
