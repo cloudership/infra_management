@@ -13,7 +13,7 @@ dependency "base" {
 }
 
 terraform {
-  source = "git::https://github.com/cloudership/infra_tf_base.git//eks?ref=v1.0.0"
+  source = "git::https://github.com/cloudership/infra_tf_base.git//eks?ref=master"
 }
 
 inputs = {
