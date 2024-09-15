@@ -9,6 +9,15 @@ Personal notes and one-liners and other helpful tidbits
 Configure kubectl automatically after creating eks cluster using
 https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
 
+### Install cert-manager automatically along with AWS LBC
+
+Is required, apparently.
+
+https://cert-manager.io/docs/installation/kubectl/
+https://artifacthub.io/packages/helm/cert-manager/cert-manager
+
+### 
+
 ## Turn it all on
 
 ```shell
