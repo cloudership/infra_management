@@ -28,20 +28,6 @@ dependency "apps" {
   }
 }
 
-generate "k8s_provider" {
-  path      = "k8s_provider.tf"
-  if_exists = "overwrite_terragrunt"
-
-  # Assumes cluster name has the default configuration as described here:
-  # https://github.com/cloudership/infra_management/blob/master/doc/kubernetes.md#kubectl-access
-  contents = <<-HCL
-    provider "kubernetes" {
-      config_path    = "~/.kube/config"
-      config_context = "showcase-main"
-    }
-  HCL
-}
-
 terraform {
   source = "git::https://github.com/cloudership/infra_tf_apps.git//k8s?ref=master"
 }
@@ -51,6 +37,7 @@ inputs = {
   rds_port                            = dependency.base.outputs.rds_port
   bucket_mlflow_name                  = dependency.apps.outputs.bucket_mlflow_name
   policy_mlflow_arn                   = dependency.apps.outputs.policy_mlflow_arn
+  eks_cluster_main_name               = dependency.base_eks.outputs.eks_cluster_main_name
   eks_cluster_main_oidc_provider_name = dependency.base_eks.outputs.eks_cluster_main_oidc_provider_name
   eks_cluster_main_oidc_provider_arn  = dependency.base_eks.outputs.eks_cluster_main_oidc_provider_arn
 }
