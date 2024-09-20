@@ -4,22 +4,17 @@ Personal notes and one-liners and other helpful tidbits
 
 ## TODO
 
-### kubectl auto-configure
-
-Configure kubectl automatically after creating eks cluster using
-https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
-
-### Install cert-manager automatically along with AWS LBC
-
-Is required, apparently.
+### Make installation of cert-manager more robust
 
 https://cert-manager.io/docs/installation/kubectl/
 https://artifacthub.io/packages/helm/cert-manager/cert-manager
+
+Currently, Terraform installs the helm charts for cert-manager right after the LBC helm charts have finished deploying. This is not enough time some of the internals of LBC to "warm up" and become available, so cert-manager fails to install. Waiting a little while and retrying the installation of cert-manager then works.
 
 ### 
 
 ## Turn it all on
 
 ```shell
-bin/tg prod base apply -auto-approve && bin/tg prod base_eks apply -auto-approve && bin/tg prod apps apply -auto-approve && AWS_PROFILE=Prod aws eks update-kubeconfig --name showcase-main --alias showcase-main --user-alias showcase-main && bin/tg prod apps_k8s apply -auto-approve
+bin/tg prod base apply -auto-approve && bin/tg prod base_eks apply -auto-approve && bin/tg prod apps apply -auto-approve && bin/tg prod apps_k8s apply -auto-approve
 ```
