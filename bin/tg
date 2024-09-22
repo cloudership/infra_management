@@ -8,7 +8,7 @@ REPO_ROOT_DIR="$(realpath "${SCRIPT_LIB_DIR}/..")"
 USAGE="Usage: ${0} ENV_NAME COMPONENT_DIR <COMMAND> [OPTIONS]
 
 COMMAND: Any command Terragrunt takes
-OPTIONS: Any command Terragrunt takes
+OPTIONS: Any option Terragrunt takes
  (see 'terragrunt --help')
 
 If a symlink called 'local' is found in the component dir,
