@@ -79,7 +79,6 @@ $ bin/tg prod base plan
 
 Terragrunt can figure this out if run-all is used but that is not officially supported for now. The manual run order is:
 * base
-* base_domains
 * base_eks
 * apps
 * apps_k8s
