@@ -81,7 +81,6 @@ Terragrunt can figure this out if run-all is used but that is not officially sup
 * base
 * base_eks
 * apps
-* apps_k8s
 
 Then Kubernetes manifests can be applied.
 
