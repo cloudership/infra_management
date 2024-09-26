@@ -9,8 +9,7 @@ if [[ -n "${ALL:-}" ]]; then
 fi
 
 "${scriptdir}/tg" prod apps init
-"${scriptdir}/tg" prod apps --terragrunt-non-interactive apply -destroy -auto-approve \
-    -target=module.apps_k8s
+"${scriptdir}/tg" prod apps state rm module.apps_k8s || true
 
 "${scriptdir}/tg" prod base_eks init
 "${scriptdir}/tg" prod base_eks state rm helm_release.lbc || true
