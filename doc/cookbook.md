@@ -23,3 +23,9 @@ Create a ConfigMap manifest with:
 ```shell
 jq -n '{"apiVersion": "v1", "kind":"ConfigMap", "metadata":{"namespace":"apps","name":"mlflow"}} + {"data": input}' tmp/connection-information.json
 ```
+
+## Convert outputs from a component to JSON (ignoring sensitive values)
+
+```shell
+AWS_PROFILE=Management bin/tg prod base output -json | jq '. | with_entries(select(.value.sensitive == false)) | map_values(.value)'
+```
