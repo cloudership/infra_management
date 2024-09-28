@@ -18,7 +18,7 @@ fi
 
 "${scriptdir}/tg" prod base init
 "${scriptdir}/tg" prod base --terragrunt-non-interactive apply -destroy -auto-approve \
-    -target=module.alb_public
+    -target=module.alb.module.alb_public
 if [[ -n "${NAT_INSTANCE:-}" ]]; then
     "${scriptdir}/tg" prod base --terragrunt-non-interactive apply -destroy -auto-approve \
         -target=module.nat_instance
