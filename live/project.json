@@ -1,8 +1,7 @@
 {
   "project_name": "showcase",
-  "root_domain": "cloudership.com",
+  "root_domain": "mlops-showcase.co.uk",
   "env_account_ids": {
-    "build": "472822006607",
-    "prod": "697348095323"
+    "prod": "381492273274"
   }
 }

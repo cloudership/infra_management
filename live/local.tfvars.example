@@ -1,7 +1,2 @@
-# [type=boolean] Set this to false and components will delete expensive resources. Components should default this to
-# true and allow it to be overriden with false. Depends on component support.
-# enable_expensive = true/false
-
-# [type=list(string)] This causes components to add a firewall rule to limit access to certain resources. Each element
-# must be a full CIDR value. Depends on component support.
-# allowed_ips = ["aaa.bbb.ccc.ddd/32"]
+# e.g. 0.0.0.0/0 or 1.2.3.4/32
+allowed_ipv4 = "a.b.c.d/xx"

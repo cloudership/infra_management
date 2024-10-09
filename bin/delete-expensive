@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -euo pipefail
+
+scriptdir="$(dirname "${BASH_SOURCE[0]}")"
+
+if [[ -n "${ALL:-}" ]]; then
+    NAT_INSTANCE=1
+fi
+
+"${scriptdir}/tg" prod apps init
+"${scriptdir}/tg" prod apps state rm module.apps_k8s || true
+
+"${scriptdir}/tg" prod base_eks init
+"${scriptdir}/tg" prod base_eks state rm helm_release.lbc || true
+"${scriptdir}/tg" prod base_eks --terragrunt-non-interactive apply -destroy -auto-approve \
+    -target=module.main_eks_cluster
+
+"${scriptdir}/tg" prod base init
+"${scriptdir}/tg" prod base --terragrunt-non-interactive apply -destroy -auto-approve \
+    -target=module.alb.module.alb_public
+if [[ -n "${NAT_INSTANCE:-}" ]]; then
+    "${scriptdir}/tg" prod base --terragrunt-non-interactive apply -destroy -auto-approve \
+        -target=module.nat_instance
+fi

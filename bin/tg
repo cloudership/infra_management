@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -euo pipefail
+
+SCRIPT_LIB_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+REPO_ROOT_DIR="$(realpath "${SCRIPT_LIB_DIR}/..")"
+
+USAGE="Usage: ${0} ENV_NAME COMPONENT_DIR <COMMAND> [OPTIONS]
+
+COMMAND: Any command Terragrunt takes
+OPTIONS: Any option Terragrunt takes
+ (see 'terragrunt --help')
+
+If a symlink called 'local' is found in the component dir,
+invokes terragrunt with --terragrunt-source set to that dir
+"
+
+error_exit() {
+    echo "${1:-error}" >&2
+    exit 1
+}
+
+check_arg() {
+    if [[ -z "${1}" ]]; then
+        echo "ERROR: ${2:-error}" >&2
+        echo >&2
+        echo "${USAGE}" >&2
+        exit 1
+    fi
+}
+
+ENV_NAME="${1:-}"
+check_arg "${ENV_NAME}" "1st arg must be env name"
+shift
+
+REL_COMPONENT_DIR="${1:-}"
+check_arg "${REL_COMPONENT_DIR}" "2nd arg must be component name"
+shift
+COMPONENT_DIR="${REPO_ROOT_DIR}/live/${ENV_NAME}/${REL_COMPONENT_DIR}"
+
+[[ ! -d "${COMPONENT_DIR}" ]] && error_exit "${COMPONENT_DIR} does not exist"
+
+COMMAND="${1:-}"
+check_arg "${COMMAND}" "3rd arg must be a command"
+shift
+
+cd "${COMPONENT_DIR}"
+
+ARGS=()
+
+if [[ -L local ]]; then
+    localdir="$(readlink -f local)"
+    if [[ -d "${localdir}/infra" ]]; then
+        ARGS+=("--terragrunt-source=${localdir}//infra")
+    else
+        ARGS+=("--terragrunt-source=${localdir}")
+    fi
+fi
+
+[[ -n "${1:-}" ]] && ARGS+=( "${@}" )
+
+set +u
+terragrunt "${COMMAND}" "${ARGS[@]}"

@@ -3,3 +3,6 @@
 /live/local.tfvars
 /tmp/
 /.env
+
+local
+local.disabled
