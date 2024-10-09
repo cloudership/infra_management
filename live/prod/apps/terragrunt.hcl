@@ -20,7 +20,7 @@ dependency "base_eks" {
 }
 
 terraform {
-  source = "git::https://github.com/cloudership/infra_tf_apps.git?ref=master"
+  source = "git::https://github.com/cloudership/infra_tf_apps.git?ref=v1.0.0"
 }
 
 inputs = {
