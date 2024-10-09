@@ -17,6 +17,9 @@
       <excludeFolder url="file://$MODULE_DIR$/live/prod/base_domains/local" />
       <excludeFolder url="file://$MODULE_DIR$/live/prod/base_eks/.terragrunt-cache" />
       <excludeFolder url="file://$MODULE_DIR$/live/prod/base_eks/local" />
+      <excludeFolder url="file://$MODULE_DIR$/live/prod/apps/local.disabled" />
+      <excludeFolder url="file://$MODULE_DIR$/live/prod/base/local.disabled" />
+      <excludeFolder url="file://$MODULE_DIR$/live/prod/base_eks/local.disabled" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
