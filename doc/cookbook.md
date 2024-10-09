@@ -13,15 +13,15 @@ for i in base base_eks apps; do AWS_PROFILE=Management bin/tg prod $i apply -aut
 Given a file `tmp/connection-information.json` contains:
 ```json
 {
-  "DB_USER": "mlflow",
-  "DB_NAME": "mlflow"
+  "DB_USER": "user123",
+  "DB_NAME": "frontend_app_qa"
 }
 ```
 
 Create a ConfigMap manifest with:
 
 ```shell
-jq -n '{"apiVersion": "v1", "kind":"ConfigMap", "metadata":{"namespace":"apps","name":"mlflow"}} + {"data": input}' tmp/connection-information.json
+jq -n '{"apiVersion": "v1", "kind":"ConfigMap", "metadata":{"namespace":"apps","name":"frontend_app"}} + {"data": input}' tmp/connection-information.json
 ```
 
 ## Convert outputs from a component to JSON (ignoring sensitive values)
