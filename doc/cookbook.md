@@ -2,10 +2,13 @@
 
 Personal notes, HOWTOs, one-liners, and other helpful tidbits
 
-## Turn it all on
+## Turn it all on including K8s services
+
+> [!NOTE]
+> Use a Terragrunt source map for more dynamic setting of local sources, then enjoy parallelization
 
 ```shell
-for i in base base_eks apps; do AWS_PROFILE=Management bin/tg prod $i apply -auto-approve; done
+(set -euo pipefail; for i in base base_eks apps; do AWS_PROFILE=Management bin/tg prod $i apply -auto-approve; done) && AWS_PROFILE=Prod aws eks update-kubeconfig --name showcase-main --alias showcase-main --user-alias showcase-main && (set -euo pipefail; find ../infra_k8s_svc/live -name 'up' -perm +111 | while read i; do "${i}"; done)
 ```
 
 ## Create configmap manifests using JQ and key/value pairs from a file
