@@ -25,8 +25,6 @@ terraform {
 
 inputs = {
   vpc_id                        = dependency.base.outputs.vpc_id
-  rds_hostname                  = dependency.base.outputs.rds_hostname
-  rds_port                      = dependency.base.outputs.rds_port
   alb_public_zone_id            = dependency.base.outputs.alb_public_zone_id
   alb_public_dns_name           = dependency.base.outputs.alb_public_dns_name
   alb_public_https_listener_arn = dependency.base.outputs.alb_public_https_listener_arn
@@ -36,5 +34,4 @@ inputs = {
   eks_cluster_main_name               = dependency.base_eks.outputs.eks_cluster_main_name
   eks_cluster_main_oidc_provider_name = dependency.base_eks.outputs.eks_cluster_main_oidc_provider_name
   eks_cluster_main_oidc_provider_arn  = dependency.base_eks.outputs.eks_cluster_main_oidc_provider_arn
-  eks_cluster_main_sg_id              = dependency.base_eks.outputs.eks_cluster_main_sg_id
 }
