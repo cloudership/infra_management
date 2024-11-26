@@ -82,37 +82,10 @@ Terragrunt can figure this out if run-all is used but that is not officially sup
 * base_eks
 * apps
 
-Then Kubernetes manifests can be applied.
+These modules can be found in these repositories:
+* https://github.com/cloudership/infra_tf_base
+* https://github.com/cloudership/infra_tf_apps
 
----
+Then the kubectl command must be configured: (see [doc/kubernetes.md](doc/kubernetes.md))
 
-## ~~Build Docker container~~
-
-~~The CI pipeline builds a Docker container and uses that to run commands. Here is how to test the build manually:~~
-
-```shell
-docker buildx build -t infra_management:local .
-```
-
-### ~~CI/CD credentials~~
-
-NOTE: Infrastructure CI/CD is disabled for now so development can be concentrated on Kubernetes CI/CD and getting the
-platform usable; it is something to be addressed in the future.
-
-~~User AWS keys are not permanently stored in GitHub Actions secrets. Instead, session credentials are generated from a
-role (using aws sts assume-role) and uploaded to GitHub secrets. These have a maximum duration after which they
-expire.~~
-
-~~First download the GitHub CLI, then ensure it is configured correctly. The GitHub token used must have permissions to
-create repository secrets in this repository.~~
-
-~~Run this to upload creds:~~
-```
-AWS_PROFILE=current-user-credentials bin/add-session-to-github-actions RoleToAssumeForGitHubActionsName
-```
-
-~~(The role has to be created before-hand. A superuser role CAN be used but is not recommended for production
-systems.)~~
-
-~~To configure the duration in seconds, set the DURATION_SECONDS env var in the current shell or in the .env file (see
-.env.example for an example).~~
+Finally, Kubernetes manifests can be  applied. [The project containing the Kubernetes manifests](https://github.com/cloudership/infra_k8s_svc)
